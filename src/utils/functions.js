@@ -1,6 +1,6 @@
 
 
-export const countNeighbors = (grid, y,x) => {  
+export const countLiveNeighbors = (grid, y,x) => {  
   let liveCount = 0
   const yLen = grid.length
   const xLen = grid[0].length
@@ -45,6 +45,25 @@ export const countNeighbors = (grid, y,x) => {
     liveCount++
   }
 
-
   return liveCount
+}
+
+export const getCellState = (currentState, liveNeighborCount) => {
+
+  /*
+    Game of life rules
+    1. any live cell with less than 2 live neighbors dies
+    2. any live cell with 2 or 3 neighbors lives
+    3. any live cell with > 3 neighors dies
+    4. any dead cell with 3 neighbors becomes alive
+  */
+
+    switch(true) {      
+      case currentState === 0 && liveNeighborCount === 3:
+      case currentState === 1 && liveNeighborCount === 2:
+      case currentState === 1 && liveNeighborCount === 3:
+        return 1     
+      default: 
+        return 0
+    }
 }
