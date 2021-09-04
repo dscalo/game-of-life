@@ -67,3 +67,19 @@ export const getCellState = (currentState, liveNeighborCount) => {
         return 0
     }
 }
+
+export const createGrid = (y, x) =>  Array(y).fill(0).map(_ => Array(x).fill(0))
+
+export const processStep = (grid) => {
+  let newGrid = createGrid(grid.length, grid[0].length)
+
+  for (let y = 0; y < grid.length; y++) {
+    for (let x = 0; x < grid[y].length; x++) {
+      const neighbors = countLiveNeighbors(grid,y,x)
+      const state = getCellState(grid[y][x], neighbors)
+      newGrid[y][x] = state
+    }
+  }
+
+  return newGrid
+}
